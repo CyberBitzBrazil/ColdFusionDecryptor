@@ -16,9 +16,10 @@ namespace ColdFusionCracker
         const string _DomainFilter = "@google";
         const bool _IdentifySpecialCharacters = true;
         const string _SpecialCharactersRegex = "[!@#$%^&*():\"<>?{ }|,./;'\\-']";
-        
+
         static void Main(string[] args)
         {
+            string passfile = string.Empty;
             if (args.Length < 1)
             {
                 FancyStuff.Header();
@@ -26,20 +27,23 @@ namespace ColdFusionCracker
                 Console.WriteLine("email,passwordencrypted,passwordhash");
                 Console.WriteLine("example:");
                 Console.WriteLine("test1@google.com,Ydn0C8I2DPQvIW/jt++HlA==,zUAdEye+wyET5AYAlegMGw==");
+                Console.WriteLine("ColdFusionDecryptor.exe \"C:\\FullPath\\to\\list.txt\"");
+                Console.WriteLine("You didnt provide a file, enter the path to the file now:");
+                Console.Write("File: ");
+                passfile = Console.ReadLine().ToString();
+            }
+
+            FileInfo fi = new FileInfo(passfile);
+            if (!fi.Exists)
+            {
+                Console.WriteLine("File does not exist: " + fi.FullName);
+
             }
             else
             {
-                FileInfo fi = new FileInfo(args[0]);
-                if (!fi.Exists)
-                {
-                    Console.WriteLine("File does not exist: " + fi.FullName);
-
-                }
-                else
-                {
-                    Decrypt(fi);
-                }
+                Decrypt(fi);
             }
+
 
         }
         private static void Decrypt(FileInfo fi)
@@ -76,7 +80,7 @@ namespace ColdFusionCracker
                     count++;
                     file.WriteLine($"{up.Email},{up.PasswordDecrpted}");
                 }
-                
+
             }
             FancyStuff.Footer();
             Console.WriteLine($"{usersList.Count} Passwords decrypted.");
