@@ -19,7 +19,7 @@ namespace ColdFusionCracker
         
         static void Main(string[] args)
         {
-            if(args.Length < 1)
+            if (args.Length < 1)
             {
                 FancyStuff.Header();
                 Console.WriteLine("Please specify a text file with CSV contents in this format:");
@@ -27,16 +27,18 @@ namespace ColdFusionCracker
                 Console.WriteLine("example:");
                 Console.WriteLine("test1@google.com,Ydn0C8I2DPQvIW/jt++HlA==,zUAdEye+wyET5AYAlegMGw==");
             }
-
-            FileInfo fi = new FileInfo(args[0]);
-            if (!fi.Exists)
-            {
-                Console.WriteLine("File does not exist: " + fi.FullName);
-                
-            }
             else
             {
-                Decrypt(fi);
+                FileInfo fi = new FileInfo(args[0]);
+                if (!fi.Exists)
+                {
+                    Console.WriteLine("File does not exist: " + fi.FullName);
+
+                }
+                else
+                {
+                    Decrypt(fi);
+                }
             }
 
         }
